@@ -7,4 +7,4 @@ ipython<6
 parsley
 psycopg2!=2.7
 six
--e git+git@github.com:andreasprlic@fix_eutils_api#egg=bioutils
+-e git+https://github.com/andreasprlic/bioutils.git@fix_eutils_api#egg=bioutils
