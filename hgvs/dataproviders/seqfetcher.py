@@ -37,7 +37,7 @@ class SeqFetcher(object):
             from biocommons.seqrepo import SeqRepo
             sr = SeqRepo(seqrepo_dir)
 
-            def _fetch_seq_seqrepo(ac, start_i=None, end_i=None):
+            def _fetch_seq_seqrepo(ac, start_i=None, end_i=None, email=None, tool=None):
                 return sr.fetch(ac, start_i, end_i)
 
             self.fetcher = _fetch_seq_seqrepo
@@ -46,9 +46,9 @@ class SeqFetcher(object):
             self.fetcher = bioutils.seqfetcher.fetch_seq
             logger.info("Using remote sequence fetching")
 
-    def fetch_seq(self, ac, start_i=None, end_i=None):
+    def fetch_seq(self, ac, start_i=None, end_i=None, email='scaleable-genetics-alerts@invitae.com', tool='hgvs'):
         try:
-            return self.fetcher(ac, start_i, end_i)
+            return self.fetcher(ac, start_i, end_i, email=email, tool=tool)
         except RuntimeError as ex:
             raise HGVSDataNotAvailableError("No sequence available for {ac} ({ex})".format(ac=ac, ex=ext))
 

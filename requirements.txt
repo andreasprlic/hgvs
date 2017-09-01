@@ -1,0 +1,10 @@
+attrs>=16.3.0
+biocommons.seqrepo
+biopython==1.69
+configparser>=3.3.0
+enum34
+ipython<6
+parsley
+psycopg2!=2.7
+six
+-e git+git@github.com:andreasprlic@fix_eutils_api#egg=bioutils

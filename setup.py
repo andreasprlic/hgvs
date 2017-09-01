@@ -1,5 +1,11 @@
 from setuptools import setup, find_packages
 from sys import version_info
+from pip.req import parse_requirements
+
+install_reqs = parse_requirements('requirements.txt',session=False)
+ # reqs is a list of requirement
+ # e.g. ['django==1.5.1', 'mezzanine==1.4.6']
+reqs = [str(ir.req) for ir in install_reqs]
 
 short_description = "HGVS Parser, Formatter, Mapper, Validator"
 with open("doc/description.txt") as f:
@@ -51,18 +57,9 @@ setup(license="Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)",
           "genomics",
           "hgvs",
       ],
-      install_requires=[
-          "attrs>=16.3.0",
-          "biocommons.seqrepo",
-          "biopython>=1.66",
-          "bioutils>=0.2.2",
-          "configparser>=3.3.0",
-          "enum34",
-          "ipython<6",          # for hgvs-shell; >=6 for Py3 only
-          "parsley",
-          "psycopg2!=2.7",  # 2.7 bug: https://github.com/psycopg/psycopg2/issues/517
-          "six",
-      ] + version_specific_requirements,
+
+    install_requires=reqs + version_specific_requirements,
+
       setup_requires=[
           "pytest-runner",
           "setuptools_scm",
