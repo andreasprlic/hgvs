@@ -63,7 +63,7 @@ setup(
     setup_requires = [
         'setuptools_scm',
         'nose',
-        'sphinx==1.1.3',
+        'sphinx>=1.1.3',
         'sphinx_rtd_theme',
         'sphinxcontrib-fulltoc>=1.1',
         'wheel',
