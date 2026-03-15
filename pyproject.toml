@@ -244,7 +244,7 @@ zip-safe = true
 [tool.setuptools.package-data]
 # "*" = ["_data/*/*.json.gz"]
 # "*" = ["*.gz", "*.json", "*.yaml"]
-"*" = ["_data/*"]
+"*" = ["_data/*", "py.typed"]
 
 [tool.setuptools.packages.find]
 exclude = ["*.pyc", "__pycache__"]
