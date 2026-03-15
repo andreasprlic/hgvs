@@ -1,0 +1,74 @@
+{
+  "skills": [
+    {
+      "name": "add-python-typing",
+      "file": "add-python-typing.md",
+      "description": "Add modern Python 3.11+ type annotations to the hgvs codebase, including py.typed marker and common pitfall fixes.",
+      "triggers": [
+        "add typing",
+        "type annotations",
+        "add type hints",
+        "make this typed",
+        "mypy",
+        "pyright",
+        "py.typed",
+        "typing missing",
+        "annotate"
+      ]
+    },
+    {
+      "name": "hgvs-cigar-gap-mapping",
+      "file": "hgvs-cigar-gap-mapping.md",
+      "description": "Diagnose and fix variant mapping bugs near CIGAR I/D gap segments — internal gaps, adjacent gaps, double-gap cancellation.",
+      "triggers": [
+        "cigar",
+        "gap mapping",
+        "g_to_c wrong",
+        "g_to_n wrong",
+        "mapping bug",
+        "alignment gap",
+        "I segment",
+        "D segment",
+        "internal gap",
+        "adjacent gap",
+        "double-gap",
+        "uncertain",
+        "variantmapper"
+      ]
+    },
+    {
+      "name": "hgvs-mapping-verification",
+      "file": "hgvs-mapping-verification.md",
+      "description": "Verify expected g_to_c/g_to_n mapping outputs from first principles before implementing a fix.",
+      "triggers": [
+        "verify mapping",
+        "check expected",
+        "mapping verification",
+        "wrong mapping",
+        "confirm output",
+        "test expectation",
+        "mapping correct",
+        "g_to_c",
+        "g_to_n",
+        "expected result"
+      ]
+    },
+    {
+      "name": "hgvs-test-cache",
+      "file": "hgvs-test-cache.md",
+      "description": "Populate the hgvs UTA test cache when adding new test cases that need data not already cached.",
+      "triggers": [
+        "test cache",
+        "uta cache",
+        "cache-py3.hdp",
+        "HGVSDataNotAvailableError",
+        "populate cache",
+        "new test case",
+        "cache miss",
+        "mode learn",
+        "offline test",
+        "add test"
+      ]
+    }
+  ]
+}
