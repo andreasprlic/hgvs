@@ -40,7 +40,7 @@ and use these variables/variable names whenever possible.
 """
 
 
-def shell():
+def shell() -> None:
     logging.basicConfig(level=os.environ.get("HGVS_LOGGING_LEVEL", logging.WARNING))
 
     from hgvs.easy import (  # noqa: F401; instances; functionalized methods

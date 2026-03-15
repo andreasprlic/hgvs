@@ -16,7 +16,7 @@ from hgvs.utils.position import get_start_end_interbase
 
 
 class Babelfish:
-    def __init__(self, hdp, assembly_name):
+    def __init__(self, hdp, assembly_name: str) -> None:
         self.assembly_name = assembly_name
         self.hdp = hdp
         self.hn = hgvs.normalizer.Normalizer(
@@ -27,7 +27,7 @@ class Babelfish:
         # We need to accept accessions as chromosome names, so add them pointing at themselves
         self.name_to_ac_map.update({ac: ac for ac in self.name_to_ac_map.values()})
 
-    def hgvs_to_vcf(self, var_g):
+    def hgvs_to_vcf(self, var_g: SequenceVariant) -> tuple[str, int, str, str, str]:
         """**EXPERIMENTAL**
 
         converts a single hgvs allele to (chr, pos, ref, alt) using
@@ -74,7 +74,7 @@ class Babelfish:
                     alt = "."
         return chrom, start_i + 1, ref, alt, typ
 
-    def vcf_to_g_hgvs(self, chrom, position, ref, alt):
+    def vcf_to_g_hgvs(self, chrom: str, position: int, ref: str, alt: str) -> SequenceVariant:
         # VCF spec https://samtools.github.io/hts-specs/VCFv4.1.pdf
         # says for REF/ALT "Each base must be one of A,C,G,T,N (case insensitive)"
         ref = ref.upper()

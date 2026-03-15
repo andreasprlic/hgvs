@@ -31,6 +31,7 @@ import logging
 import re
 from configparser import ConfigParser, ExtendedInterpolation
 from copy import copy
+from typing import Any
 try:
     from importlib.resources import files as resources_files
 except ImportError:
@@ -45,7 +46,7 @@ class Config:
 
     """
 
-    def __init__(self, extended_interpolation=True):
+    def __init__(self, extended_interpolation: bool = True) -> None:
         if extended_interpolation:
             cp = ConfigParser(interpolation=ExtendedInterpolation())
         else:
@@ -53,22 +54,22 @@ class Config:
         cp.optionxform = _name_xform
         self._cp = cp
 
-    def read_stream(self, flo):
+    def read_stream(self, flo) -> None:
         """read configuration from ini-formatted file-like object"""
         self._cp.read_string(flo.open("rb").read().decode("ascii"))
 
-    def __copy__(self):
+    def __copy__(self) -> "Config":
         new_config = Config.__new__(Config)
         new_config._cp = object.__getattribute__(self, "_cp")
         return new_config
 
-    def __dir__(self):
+    def __dir__(self) -> list:
         return list(self._cp.keys())
 
-    def __getattr__(self, k):
+    def __getattr__(self, k: str) -> Any:
         # Work around PyCharm bug https://youtrack.jetbrains.com/issue/PY-4213
         if k == "_cp":
-            return
+            return None
         try:
             return ConfigGroup(self._cp[k])
         except KeyError:
@@ -78,18 +79,18 @@ class Config:
 
 
 class ConfigGroup:
-    def __init__(self, section):
+    def __init__(self, section) -> None:
         self.__dict__["_section"] = section
 
-    def __dir__(self):
+    def __dir__(self) -> list:
         return list(self.__dict__["_section"].keys())
 
-    def __getattr__(self, k):
+    def __getattr__(self, k: str) -> Any:
         return _val_xform(self.__dict__["_section"][k])
 
     __getitem__ = __getattr__
 
-    def __setattr__(self, k, v):
+    def __setattr__(self, k: str, v) -> None:
         logger.info(str(self.__class__.__name__) + ".__setattr__({k}, ...)".format(k=k))
         self.__dict__["_section"][k] = str(v)
 

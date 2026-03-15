@@ -36,10 +36,10 @@ class Interface(metaclass=abc.ABCMeta):
     .. _Invitae: http://invitae.com/
     """
 
-    def interface_version(self):
+    def interface_version(self) -> int:
         return 4
 
-    def __init__(self, mode=None, cache=None):
+    def __init__(self, mode: str | None = None, cache: str | None = None) -> None:
         """
         :param mode: cache mode (None[default lru cache], 'learn', 'run', 'verify')
         :type mode: str
@@ -136,59 +136,59 @@ class Interface(metaclass=abc.ABCMeta):
     required_version = None
 
     @abc.abstractmethod
-    def data_version(self):
+    def data_version(self) -> str:
         pass
 
     @abc.abstractmethod
-    def schema_version(self):
+    def schema_version(self) -> str:
         pass
 
     @abc.abstractmethod
-    def get_acs_for_protein_seq(self, seq):
+    def get_acs_for_protein_seq(self, seq: str) -> list[str]:
         pass
 
     @abc.abstractmethod
-    def get_assembly_map(self, assembly_name):
+    def get_assembly_map(self, assembly_name: str) -> dict[str, str]:
         pass
 
     @abc.abstractmethod
-    def get_gene_info(self, gene):
+    def get_gene_info(self, gene: str) -> dict | None:
         pass
 
     @abc.abstractmethod
-    def get_pro_ac_for_tx_ac(self, tx_ac):
+    def get_pro_ac_for_tx_ac(self, tx_ac: str) -> str | None:
         pass
 
     @abc.abstractmethod
-    def get_seq(self, ac, start_i=None, end_i=None):
+    def get_seq(self, ac: str, start_i: int | None = None, end_i: int | None = None) -> str:
         pass
 
     @abc.abstractmethod
-    def get_similar_transcripts(self, tx_ac):
+    def get_similar_transcripts(self, tx_ac: str) -> list[dict]:
         pass
 
     @abc.abstractmethod
-    def get_tx_exons(self, tx_ac, alt_ac, alt_aln_method):
+    def get_tx_exons(self, tx_ac: str, alt_ac: str, alt_aln_method: str) -> list[dict]:
         pass
 
     @abc.abstractmethod
-    def get_tx_for_gene(self, gene):
+    def get_tx_for_gene(self, gene: str) -> list[dict]:
         pass
 
     @abc.abstractmethod
-    def get_tx_for_region(self, alt_ac, alt_aln_method, start_i, end_i):
+    def get_tx_for_region(self, alt_ac: str, alt_aln_method: str, start_i: int, end_i: int) -> list[dict]:
         pass
 
     @abc.abstractmethod
-    def get_tx_identity_info(self, tx_ac):
+    def get_tx_identity_info(self, tx_ac: str) -> dict | None:
         pass
 
     @abc.abstractmethod
-    def get_tx_info(self, tx_ac, alt_ac, alt_aln_method):
+    def get_tx_info(self, tx_ac: str, alt_ac: str, alt_aln_method: str) -> dict | None:
         pass
 
     @abc.abstractmethod
-    def get_tx_mapping_options(self, tx_ac):
+    def get_tx_mapping_options(self, tx_ac: str) -> list[dict]:
         pass
 
 

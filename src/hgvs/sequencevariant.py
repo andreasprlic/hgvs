@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """ represents simple sequence-based variants """
 
+from __future__ import annotations
+
+from typing import Any
+
 import attr
 
 import hgvs.variantmapper
@@ -21,7 +25,7 @@ class SequenceVariant:
     posedit = attr.ib()
     gene = attr.ib(default=None)
 
-    def format(self, conf=None):
+    def format(self, conf: dict | None = None) -> str:
         """Formatting the stringification of sequence variants
 
         :param conf: a dict comprises formatting options. None is to use global settings.
@@ -47,13 +51,13 @@ class SequenceVariant:
 
     __str__ = format
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "{0}({1})".format(
             self.__class__.__name__,
             ", ".join((a.name + "=" + str(getattr(self, a.name))) for a in self.__attrs_attrs__),
         )
 
-    def fill_ref(self, hdp, alt_ac=None, alt_aln_method=hgvs.global_config.mapping.alt_aln_method):
+    def fill_ref(self, hdp: Any, alt_ac: str | None = None, alt_aln_method: str = hgvs.global_config.mapping.alt_aln_method) -> SequenceVariant:
         # TODO: Refactor. SVs should not operate on themselves when
         # external resources are required
         # replace_reference should be moved outside function
@@ -72,7 +76,7 @@ class SequenceVariant:
             self.posedit.edit.alt = self.posedit.edit.ref
         return self
 
-    def validate(self):
+    def validate(self) -> tuple[ValidationLevel, str | None]:
         (res, msg) = (ValidationLevel.VALID, None)
         if self.ac and self.type:
             (res, msg) = validate_type_ac_pair(self.type, self.ac)

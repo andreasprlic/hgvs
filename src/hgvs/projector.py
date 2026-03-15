@@ -8,6 +8,8 @@ import copy
 
 import hgvs
 import hgvs.alignmentmapper
+import hgvs.sequencevariant
+from hgvs.location import Interval
 
 
 class Projector:
@@ -30,18 +32,18 @@ class Projector:
     def __init__(
         self,
         hdp,
-        alt_ac,
-        src_ac,
-        dst_ac,
-        src_alt_aln_method=hgvs.global_config.mapping.alt_aln_method,
-        dst_alt_aln_method=hgvs.global_config.mapping.alt_aln_method,
-    ):
+        alt_ac: str,
+        src_ac: str,
+        dst_ac: str,
+        src_alt_aln_method: str = hgvs.global_config.mapping.alt_aln_method,
+        dst_alt_aln_method: str = hgvs.global_config.mapping.alt_aln_method,
+    ) -> None:
         self.hdp = hdp
         self.alt_ac = alt_ac
         self.src_tm = hgvs.alignmentmapper.AlignmentMapper(hdp, src_ac, alt_ac, src_alt_aln_method)
         self.dst_tm = hgvs.alignmentmapper.AlignmentMapper(hdp, dst_ac, alt_ac, dst_alt_aln_method)
 
-    def project_interval_forward(self, c_interval):
+    def project_interval_forward(self, c_interval: Interval) -> Interval:
         """
         project c_interval on the source transcript to the
         destination transcript
@@ -51,7 +53,7 @@ class Projector:
         """
         return self.dst_tm.g_to_c(self.src_tm.c_to_g(c_interval))
 
-    def project_interval_backward(self, c_interval):
+    def project_interval_backward(self, c_interval: Interval) -> Interval:
         """
         project c_interval on the destination transcript to the
         source transcript
@@ -61,7 +63,7 @@ class Projector:
         """
         return self.src_tm.g_to_c(self.dst_tm.c_to_g(c_interval))
 
-    def project_variant_forward(self, c_variant):
+    def project_variant_forward(self, c_variant: hgvs.sequencevariant.SequenceVariant) -> hgvs.sequencevariant.SequenceVariant:
         """
         project c_variant on the source transcript onto the destination transcript
 
@@ -77,7 +79,7 @@ class Projector:
         new_c_variant.posedit.pos = self.project_interval_forward(c_variant.posedit.pos)
         return new_c_variant
 
-    def project_variant_backward(self, c_variant):
+    def project_variant_backward(self, c_variant: hgvs.sequencevariant.SequenceVariant) -> hgvs.sequencevariant.SequenceVariant:
         """
         project c_variant on the source transcript onto the destination transcript
 

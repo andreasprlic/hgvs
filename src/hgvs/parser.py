@@ -86,7 +86,7 @@ class Parser:
 
     """
 
-    def __init__(self, grammar_fn=None, expose_all_rules=False):
+    def __init__(self, grammar_fn: str | None = None, expose_all_rules: bool = False) -> None:
         bindings = {"hgvs": hgvs, "bioutils": bioutils, "copy": copy}
         if grammar_fn is None:
             self._grammar = parsley.wrapGrammar(
@@ -99,7 +99,7 @@ class Parser:
         self._logger = logging.getLogger(__name__)
         self._expose_rule_functions(expose_all_rules)
 
-    def parse(self, v) -> hgvs.sequencevariant.SequenceVariant:
+    def parse(self, v: str) -> "hgvs.sequencevariant.SequenceVariant":
         """parse HGVS variant `v`, returning a SequenceVariant
 
         :param str v: an HGVS-formatted variant as a string
@@ -108,7 +108,7 @@ class Parser:
         """
         return self.parse_hgvs_variant(v)
 
-    def _expose_rule_functions(self, expose_all_rules=False):
+    def _expose_rule_functions(self, expose_all_rules: bool = False) -> None:
         """add parse functions for public grammar rules
 
         Defines a function for each public grammar rule, based on
