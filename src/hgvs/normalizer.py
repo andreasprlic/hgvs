@@ -10,6 +10,7 @@ from typing import Any
 from bioutils.sequences import reverse_complement
 
 import hgvs
+import hgvs.dataproviders.interface
 import hgvs.sequencevariant
 import hgvs.validator
 import hgvs.variantmapper
@@ -29,7 +30,7 @@ class Normalizer:
 
     def __init__(
         self,
-        hdp: Any,
+        hdp: hgvs.dataproviders.interface.Interface,
         cross_boundaries: bool = hgvs.global_config.normalizer.cross_boundaries,
         shuffle_direction: int = hgvs.global_config.normalizer.shuffle_direction,
         alt_aln_method: str = hgvs.global_config.mapping.alt_aln_method,

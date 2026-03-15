@@ -4,9 +4,9 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 import hgvs
+import hgvs.dataproviders.interface
 import hgvs.edit
 import hgvs.parser
 import hgvs.sequencevariant
@@ -29,7 +29,7 @@ _logger = logging.getLogger(__name__)
 class Validator:
     """invoke intrinsic and extrinsic validation"""
 
-    def __init__(self, hdp: Any, strict: bool = hgvs.global_config.validator.strict) -> None:
+    def __init__(self, hdp: hgvs.dataproviders.interface.Interface, strict: bool = hgvs.global_config.validator.strict) -> None:
         self.strict = strict
         self._ivr = IntrinsicValidator(strict)
         self._evr = ExtrinsicValidator(hdp, strict)
@@ -67,7 +67,7 @@ class ExtrinsicValidator:
     Attempts to determine if the HGVS name validates against external data sources
     """
 
-    def __init__(self, hdp: Any, strict: bool = hgvs.global_config.validator.strict) -> None:
+    def __init__(self, hdp: hgvs.dataproviders.interface.Interface, strict: bool = hgvs.global_config.validator.strict) -> None:
         self.strict = strict
         self.hdp = hdp
         self.vm = hgvs.variantmapper.VariantMapper(self.hdp, prevalidation_level=None)

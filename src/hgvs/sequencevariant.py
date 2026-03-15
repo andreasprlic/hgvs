@@ -3,10 +3,9 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 import attr
 
+import hgvs.dataproviders.interface
 import hgvs.variantmapper
 from hgvs.enums import ValidationLevel
 from hgvs.utils.validation import validate_type_ac_pair
@@ -57,7 +56,7 @@ class SequenceVariant:
             ", ".join((a.name + "=" + str(getattr(self, a.name))) for a in self.__attrs_attrs__),
         )
 
-    def fill_ref(self, hdp: Any, alt_ac: str | None = None, alt_aln_method: str = hgvs.global_config.mapping.alt_aln_method) -> SequenceVariant:
+    def fill_ref(self, hdp: hgvs.dataproviders.interface.Interface, alt_ac: str | None = None, alt_aln_method: str = hgvs.global_config.mapping.alt_aln_method) -> SequenceVariant:
         # TODO: Refactor. SVs should not operate on themselves when
         # external resources are required
         # replace_reference should be moved outside function
