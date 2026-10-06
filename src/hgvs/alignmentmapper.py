@@ -560,10 +560,7 @@ class AlignmentMapper:
             msg = f"CDS is undefined for {self.tx_ac}; cannot map to c. coordinate (non-coding transcript?)"
             raise HGVSUsageError(msg)
 
-        if isinstance(n_interval, BaseOffsetInterval):
-            start = n_interval.start.base
-            end = n_interval.end.base
-        elif isinstance(n_interval.start, Interval):
+        if isinstance(n_interval.start, Interval):
             start = n_interval.start.start.base
             end = n_interval.end.end.base
         else:

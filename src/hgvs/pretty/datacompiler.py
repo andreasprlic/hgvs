@@ -75,18 +75,14 @@ class DataCompiler:
         )
 
     def _get_start_end(self, var):
-        if isinstance(var.posedit.pos, hgvs.location.BaseOffsetInterval):
-            s = var.posedit.pos.start
-        elif isinstance(var.posedit.pos.start, hgvs.location.Interval):
+        if isinstance(var.posedit.pos.start, hgvs.location.Interval):
             s = var.posedit.pos.start.start
             if not s.base:
                 s = var.posedit.pos.start.end
         else:
             s = var.posedit.pos.start
 
-        if isinstance(var.posedit.pos.end, hgvs.location.BaseOffsetPosition):
-            e = var.posedit.pos.end
-        elif isinstance(var.posedit.pos.end, hgvs.location.Interval):
+        if isinstance(var.posedit.pos.end, hgvs.location.Interval):
             e = var.posedit.pos.end.end
             if not e.base:
                 e = var.posedit.pos.end.start
